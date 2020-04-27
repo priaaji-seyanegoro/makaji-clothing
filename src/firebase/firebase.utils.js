@@ -10,7 +10,31 @@ const config = {
   storageBucket: "makaji-clothing-db-950c7.appspot.com",
   messagingSenderId: "473803639079",
   appId: "1:473803639079:web:6669891f7195fd5d9c0102",
-  measurementId: "G-CFMVHNZRWV"
+  measurementId: "G-CFMVHNZRWV",
+};
+
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const snapShot = await userRef.get();
+
+  if (!snapShot.exists) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData,
+      });
+    } catch (err) {
+      console.log(err.massage);
+    }
+  }
+  return userRef;
 };
 
 firebase.initializeApp(config);
