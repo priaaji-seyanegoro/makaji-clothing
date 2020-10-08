@@ -1,7 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
-
-import { addItem } from "../../redux/cart/cart.action";
 
 import "./checkout-item.style.scss";
 
@@ -17,9 +14,7 @@ const CheckOutItems = ({ cartItem }) => {
       <span className="quantity">
         <div className="arrow">&#10094;</div>
         <span className="value">{quantity}</span>
-        <div className="arrow" onClick={() => addItem(cartItem)}>
-          &#10095;
-        </div>
+        <div className="arrow">&#10095;</div>
       </span>
 
       <span className="price">{price}</span>
@@ -28,8 +23,6 @@ const CheckOutItems = ({ cartItem }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addItem: (item) => dispatch(addItem(item)),
-});
+export default CheckOutItems;
 
-export default connect(null, mapDispatchToProps)(CheckOutItems);
+// MENIT KE 1:47 COURSE KE-127
